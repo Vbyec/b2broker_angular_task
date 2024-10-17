@@ -1,0 +1,43 @@
+<form [formGroup]="form" class="form">
+    <div class="form-field">
+        <label>Timer, ms</label>
+        <input type="number" formControlName="timer">
+    </div>
+    <div class="form-field">
+        <label>Array size</label>
+        <input type="number" formControlName="size">
+    </div>
+    <div class="form-field">
+        <label>Additional array ids</label>
+        <input type="text" [formControl]="additionalIdsControl">
+    </div>
+</form>
+
+<table class="table">
+    <tr>
+        <th class="column">id</th>
+        <th class="column">int</th>
+        <th class="column">float</th>
+        <th class="column">color</th>
+        <th class="column-child">child</th>
+        <th></th> <!-- to make table more fancy-->
+    </tr>
+    <tr *ngFor="let entity  of entitiesToShow$ | async; trackBy: trackByFn">
+        <td class="cell">{{ entity.id }}</td>
+        <td class="cell">{{ entity.int }}</td>
+        <td class="cell">{{ entity.float }}</td>
+        <td class="cell" [style.background-color]="entity.color">{{ entity.color }}</td>
+        <td class="cell">
+            <table class="table">
+                <tr>
+                    <th class="column">id</th>
+                    <th class="column">color</th>
+                </tr>
+                <tr>
+                    <td>{{ entity.child.id }}</td>
+                    <td [style.background-color]="entity.child.color">{{ entity.child.color }}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
